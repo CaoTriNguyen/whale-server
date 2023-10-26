@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const app = express();
 
 const route = require('./routes');
+//const db = require('./config/db');
 
 const port = process.env.PORT || 5000;
 
