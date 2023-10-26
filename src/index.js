@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+var cors = require('cors');
 const app = express();
 
 const route = require('./routes');
@@ -8,6 +9,7 @@ const route = require('./routes');
 const port = process.env.PORT || 5000;
 
 app.use(morgan('combined'));
+app.use(cors());
 
 route(app);
 

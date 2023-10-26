@@ -18,7 +18,7 @@ Course.getAll = (result) => {
             return;
         }
 
-        console.log('course: ', res);
+        //console.log('course: ', res);
         result(null, res);
     });
 };
