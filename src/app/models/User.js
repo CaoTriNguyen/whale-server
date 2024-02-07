@@ -2,17 +2,16 @@ const db = require('../../config/db');
 
 const User = function (user) {
     this.id = user.id;
-    this.username = user.user;
-    this.password = user.password;
-    this.avatar = user.avatar;
-    this.gmail = user.gmail;
-    this.firstName = user.firstName;
-    this.lastName = user.lastName;
-    this.gender = user.gender;
-    this.dateOfBirth = user.dateOfBirth;
-    this.createAt = user.createAt;
-    this.updateAt = user.updateAt;
-    this.deleted = user.deleted;
+    this.user_name = user.user_name;
+    this.user_pass = user.user_pass;
+    this.user_url = user.user_url;
+    this.user_email = user.user_email;
+    this.user_firstName = user.user_firstName;
+    this.user_lastName = user.user_lastName;
+    this.user_birthday = user.user_birthday;
+    this.user_registered = user.user_registered;
+    this.user_last_activity = user.user_last_activity;
+    this.user_status = user.user_status;
 };
 
 User.getAll = (result) => {
@@ -26,6 +25,46 @@ User.getAll = (result) => {
         }
 
         //console.log('course: ', res);
+        result(null, res);
+    });
+};
+
+User.login = (info, result) => {
+    let query =
+        `SELECT * FROM user WHERE user.username='` + info.username + `' AND user.password = '` + info.password + `'`;
+    console.log(query);
+    db.query(query, (err, res) => {
+        if (err) {
+            console.log('error: ', err);
+            result(null, err);
+            return;
+        }
+        result(null, res);
+    });
+};
+
+User.insert = (info, result) => {
+    let query =
+        `insert into w_users(user_name, user_pass, user_email, user_registered, user_firstname, user_lastname, user_birthday, user_status) values('` +
+        info.username +
+        `','` +
+        info.password +
+        `','` +
+        info.email +
+        `',now(),'` +
+        info.firstName +
+        `','` +
+        info.lastName +
+        `','` +
+        info.birthday +
+        `',1);`;
+    console.log(query);
+    db.query(query, (err, res) => {
+        if (err) {
+            console.log('error: ', err);
+            result(null, err);
+            return;
+        }
         result(null, res);
     });
 };

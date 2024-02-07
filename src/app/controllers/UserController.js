@@ -1,3 +1,4 @@
+const { json } = require('express');
 const User = require('../models/User');
 
 class SiteController {
@@ -13,9 +14,31 @@ class SiteController {
     }
 
     login(req, res) {
-        res.send({
-            token: 'test123',
+        console.log(req.body);
+        User.insert(req.body, (err, data) => {
+            if (err)
+                res.status(500).json({
+                    message: err.message || 'Some error occurred while retrieving courses.',
+                });
+            else res.json({ token: data });
         });
+        // res.send({
+        //     token: 'test123',
+        // });
+    }
+
+    signup(req, res) {
+        console.log(req.body);
+        User.insert(req.body, (err, data) => {
+            if (err)
+                res.status(500).json({
+                    message: err.message || 'Some error occurred while retrieving courses.',
+                });
+            else res.json({ data: data });
+        });
+        // res.send({
+        //     token: 'test123',
+        // });
     }
 }
 
